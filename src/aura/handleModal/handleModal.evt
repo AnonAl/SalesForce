@@ -1,0 +1,10 @@
+<!--
+ - Created by Alexander on 26.05.2021.
+ -->
+
+<aura:event type="COMPONENT" description="handleModal">
+    <aura:attribute name="closeMdl" type="Boolean"/>
+    <aura:attribute name="sendNotification" type="Boolean"/>
+    <aura:attribute name="submit" type="Boolean"/>
+</aura:event>
+

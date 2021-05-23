@@ -1,0 +1,13 @@
+/**
+ * Created by Alexander on 22.05.2021.
+ */
+.THIS {
+}
+
+.cases.THIS{
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: flex-start;
+}
+
