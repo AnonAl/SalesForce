@@ -4,7 +4,7 @@
 @IsTest
 public with sharing class Product2HandlerTest {
 
-    private static Id oppId, productId;
+    private static Id oppId, productId, productEntryId;
 
     @TestSetup
     static void setup() {
@@ -34,6 +34,7 @@ public with sharing class Product2HandlerTest {
                 IsActive = true
         );
         insert pricebookEntries;
+        productEntryId = pricebookEntries.Id;
 
         OpportunityLineItem opportunityLineItems = new OpportunityLineItem(
                 OpportunityId = opportunity.Id,
@@ -81,15 +82,13 @@ public with sharing class Product2HandlerTest {
         ];
 
 
-        Task task = [
-                SELECT WhatId, Priority
-                FROM Task
-                WHERE WhatId = :oppId
-                LIMIT 1
-        ];
+        Task task = [SELECT WhatId, Priority
+        FROM Task
+        WHERE WhatId = :opportunity.Id
+        LIMIT 1];
 
-        System.assertEquals(null, task);
-        System.assertEquals(task.WhatId, oppId);
+        System.assertNotEquals(null, task);
+        System.assertEquals(task.WhatId, opportunity.Id);
 
     }
 
