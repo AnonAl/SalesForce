@@ -4,6 +4,8 @@
 @IsTest
 public with sharing class Product2HandlerTest {
 
+    private static Id oppId, productId;
+
     @TestSetup
     static void setup() {
 
@@ -15,6 +17,7 @@ public with sharing class Product2HandlerTest {
                 IsActive = true,
                 ProductCode = '11232');
         insert lProduct2s;
+        productId = lProduct2s.Id;
 
         Opportunity opportunity = new Opportunity(
                 Name = 'Oppo',
@@ -22,6 +25,7 @@ public with sharing class Product2HandlerTest {
                 CloseDate = Date.today().addDays(4)
         );
         insert opportunity;
+        oppId = opportunity.Id;
 
         PricebookEntry pricebookEntries = new PricebookEntry(
                 Product2Id = lProduct2s.Id,
@@ -76,16 +80,16 @@ public with sharing class Product2HandlerTest {
                 LIMIT 1
         ];
 
+
         Task task = [
                 SELECT WhatId, Priority
                 FROM Task
-                WHERE WhatId = :opportunity.Id
+                WHERE WhatId = :oppId
                 LIMIT 1
         ];
 
-        if (task != null) {
-            System.assertEquals(task.WhatId, opportunity.Id);
-        }
+        System.assertEquals(null, task);
+        System.assertEquals(task.WhatId, oppId);
 
     }
 
